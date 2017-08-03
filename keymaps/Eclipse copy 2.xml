@@ -1,0 +1,10 @@
+<keymap version="1" name="Eclipse copy 2" parent="Eclipse">
+  <action id="CodeCompletion">
+    <keyboard-shortcut first-keystroke="ctrl space" />
+    <keyboard-shortcut first-keystroke="back_quote" />
+  </action>
+  <action id="OverrideMethods">
+    <keyboard-shortcut first-keystroke="alt back_quote" />
+  </action>
+  <action id="Vcs.QuickListPopupAction" />
+</keymap>
