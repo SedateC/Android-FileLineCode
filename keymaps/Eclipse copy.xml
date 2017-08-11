@@ -6,4 +6,5 @@
   <action id="OverrideMethods">
     <keyboard-shortcut first-keystroke="alt back_quote" />
   </action>
+  <action id="Vcs.QuickListPopupAction" />
 </keymap>
