@@ -10,11 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import com.service.sedatec.adparter.WxRecyclerAdparter;
 import com.service.sedatec.base.BaseActivity;
 import com.service.sedatec.dbentity.AccountEntity;
-import com.service.sedatec.weixinmanager.WeiXinManager;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountRecycle extends BaseActivity {

@@ -68,7 +68,6 @@ public class WeiXinService extends AccessibilityService {
                          }catch (Exception e){
                              e.printStackTrace();
                          }
-
                      ShellUtils.execCommand("input tap 450 900",true);//点击退出当前账号
                      }else if(flag.equals("ONSETTABLEEXITCLICK")){
                          ShellUtils.execCommand("input tap 806 1128",true);//点击退出微信
@@ -86,12 +85,11 @@ public class WeiXinService extends AccessibilityService {
                              AccountEntity account =  accounts.get(i);
                              Log.d(TAG, "nowAccountsId account: i:"+i+"---"+account);
                          }
-                         Log.d(TAG, "eventChuange"+"nowAccountsId: "+nowAccountsId+"chuangeflag: "+chuangeflag +"  nowAccountEntity"+nowAccountEntity);
-                             entity = autoChuangeAccount(accounts,chuangeflag);
+                             if (chuangeflag=true){
+                                entity = autoChuangeAccount(accounts,chuangeflag);
+                             }
                          if (entity!=null){
                              nowAccountEntity = entity;
-                             Log.d(TAG, "onAccessibilityEvent:___________nowAccountsId____________________ ");
-                             Log.d(TAG, "eventChuange"+"nowAccountsId: "+nowAccountsId+"chuangeflag: "+chuangeflag +"  nowAccountEntity"+nowAccountEntity);
                          }
                          List<AccessibilityNodeInfo> accInputs = rootNodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/h2");
                          Log.d(TAG, "onAccessibilityEvent: "+accInputs);
@@ -116,20 +114,24 @@ public class WeiXinService extends AccessibilityService {
     }
 
     private AccountEntity autoChuangeAccount(List<AccountEntity> accounts,boolean flag) {
-        if (nowAccountsId<accounts.size()-1 && flag){//循环添加
+        Log.d(TAG, "autoChuangeAccount: accounts.size()"+accounts.size()+"-----flag"+flag);
+        if (nowAccountsId<accounts.size()&& flag){//循环添加
             nowAccountEntity = accounts.get(nowAccountsId);
             nowAccountsId ++;
             chuangeflag=false;
+            Log.d(TAG, "autoChuangeAccount: nowAccountsId++"+nowAccountsId+"___"+nowAccountEntity);
             return nowAccountEntity;
-       }else if (nowAccountsId<accounts.size()-1) {// 这里是其他次进入此次方法的情况
+       }else if (nowAccountsId<accounts.size()) {// 这里是其他次进入此次方法的情况
             if (nowAccountsId==0){
-                return accounts.get(nowAccountsId);
+                accounts.get(0);
             }
+            Log.d(TAG, "autoChuangeAccount:不++ nowAccountsId-1 "+nowAccountsId+"___"+nowAccountEntity);
             return accounts.get(nowAccountsId-1);
-        } else {//循环完成的情况
-            nowAccountsId=0;
-            return accounts.get(nowAccountsId);
-       }
+        } else {
+            Log.d(TAG, "autoChuangeAccount   nowAccountsId=0; "+nowAccountsId);
+                nowAccountsId=0;
+             return accounts.get(nowAccountsId);
+        }
     }
 
 
@@ -191,7 +193,8 @@ public class WeiXinService extends AccessibilityService {
         else if (chuangepal!=null&&!chuangepal.isEmpty()){
             return "CHUANGEACCOUNT";
         }
-        else if (phoneLogin!=null&&!phoneLogin.isEmpty()&&phoneLogin1!=null&&!phoneLogin1.isEmpty()){
+        else if (phoneLogin!=null&&!phoneLogin.isEmpty()&&phoneLogin1!=null&&!phoneLogin1.isEmpty()
+                &&loginclick!=null&&loginclick.isEmpty()){
             return "PHONELOGIN";
         }
         else if (phoneLogin!=null&&!phoneLogin.isEmpty()&&loginclick!=null&&!loginclick.isEmpty()){
